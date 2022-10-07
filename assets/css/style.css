@@ -1,0 +1,109 @@
+:root {
+    --main: #06283D;
+    --text: #DFF6FF;
+    --box: #256D85;
+    --button: #47B5FF;
+    --mar: 2.5%;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+  
+header {
+    background-color: var(--main);
+    color: var(--text);
+    height: 15vh;
+    text-align: center;
+}
+
+h1 {
+    padding-top: var(--mar);
+}
+
+main {
+    margin: var(--mar);
+}
+
+form {
+    border: 5px solid var(--main);
+    border-radius: 20px;
+    padding: var(--mar);
+    background-color: var(--main);
+    color: var(--text);
+}
+
+h3, h4 {
+    padding: var(--mar);
+}
+
+ol {
+    list-style-type: none;
+    text-align: center;
+}
+
+ol li {
+    margin: var(--mar);
+    font-size: 25px;
+    background-color: gray;
+    border-radius: 30px;
+    padding: var(--mar);
+    color: var(--text);
+}
+
+input {
+    width: 100%;
+    padding: var(--mar);
+    box-sizing: border-box;
+    margin-top: 10%;
+}
+
+.five {
+    border: 5px solid var(--box);
+    border-radius: 20px;
+    display: flex;    
+    margin: 1%;
+    font-size: 20px;
+    padding: 1%;
+}
+
+.forecast {
+    display: flex;
+}
+
+.button-19 {
+  appearance: button;
+  background-color: #1899D6;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  line-height: 20px;
+  margin-top: 10%;
+  outline: none;
+  overflow: visible;
+  padding: 13px 16px;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.current {
+    background-color: var(--box);
+    color: var(--text);
+    border-radius: 20px;
+    padding: var(--mar);
+    height: 50%;
+}
+
+.hidden {
+    display: none;
+}
