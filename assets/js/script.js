@@ -3,10 +3,10 @@ var historyList = document.querySelector('#history');
 var inputEl = document.querySelector('.form-input');
 var forecastEl = document.querySelector('.forecast');
 var resultPage = document.querySelector(".result");
-var currentEl = $('.current')
+var currentEl = $('.current');
 var buttonclickEl = $('#history');
-var cityname = "";
-var saveEl = [];
+var cityName = "";
+var saveList = [];
 
 // day information
 var currentTime = moment();
@@ -27,7 +27,7 @@ function gettingInfo (event) {
     currentEl.textContent = "";
     forecastEl.textContent = "";
     inputEl.value = "";
-    gettingUrl(searchName)
+    gettingUrl(searchName);
 }
 
 function gettingUrl(searchName) {
@@ -77,7 +77,6 @@ function gettodayweather(request) {
 
 // current weather from the second API
 function todayweather(data) {
-    console.log(data);
     var statename = document.querySelector(".search-current");
     statename.textContent = data.name;
     var img = document.createElement('img');
@@ -88,27 +87,29 @@ function todayweather(data) {
     currentInfo.innerHTML =`temp: ${data.main.temp} °F` + "<br>"
     currentInfo.innerHTML +=`wind: ${data.wind.speed} MPH` + "<br>"
     currentInfo.innerHTML += `humidity: ${data.main.humidity} %`
+    statename.appendChild(img);
     var dataName = data.name;
     listofName(dataName);
-    statename.appendChild(img);
 }
 
 // if there are redundent search history return 
 function listofName(name) {
-    for(var i = 0; i < saveEl.length; i++) {
-        if (saveEl[i] === name) {
+    cityName = name;
+    console.log(cityName)
+    for(var i = 1; i < saveList.length; i++) {
+        if (saveList[i] === name) {
             return;
         }
     }
-    if (saveEl.length >= 8) {
-        saveEl.push(`${name}`);
-        saveEl.pop();
+    if (saveList.length >= 8) {
+        saveList.push(`${name}`);
+        saveList.pop();
     } else {
-        saveEl.push(`${name}`);  
+        saveList.push(`${name}`);  
     }
     //with the added thing render the history again
+    console.log(saveList)
     local();
-    historyrender();
 }
 
 // println the data into the box for the five day weather information
@@ -140,20 +141,29 @@ function fivedayweather(data) {
 
 // local storage
 function local() {
-    localStorage.setItem("saveEl",JSON.stringify(saveEl));  
+    localStorage.setItem("saveList",JSON.stringify(saveList)); 
+    historyrender(); 
 }
 
 function historyrender() { 
     // for loop to not repeat the same things on the list
-    saveEl = JSON.parse(localStorage.getItem("saveEl"));
-    historyList.textContent = "";
-    for (var i = 0; i < saveEl.length; i++) {
-        var historyEl = document.createElement('button');
-        historyEl.setAttribute("class","recallBtn");
-        historyEl.setAttribute("data-name", saveEl[i]);
-        historyEl.textContent = saveEl[i];
-        historyList.appendChild(historyEl);
-    }   
+    var output = JSON.parse(localStorage.getItem("saveList"));
+    console.log(output)
+    saveList = output;
+    if (saveList === null) {
+        saveList = [cityName];
+        return;
+    } else {
+        historyList.textContent = "";
+        for (var i = 1; i < saveList.length; i++) {
+            var historyEl = document.createElement('button');
+            historyEl.setAttribute("class","recallBtn");
+            historyEl.setAttribute("data-name", saveList[i]);
+            historyEl.textContent = saveList[i];
+            historyList.appendChild(historyEl);
+        }   
+    }
+    
 }
 
 //getting the name which is at the left side history result
@@ -165,9 +175,8 @@ function gettingHistoryName(event) {
     gettingUrl(searching);
 }
 
+console.log(saveList)
 buttonclickEl.on('click', gettingHistoryName);
 submitFormEl.on('submit', gettingInfo);
 resultPage.classList.add("hidden");
 historyrender();
-
-// buttonHistory.addEventListener('click', gettingHistoryName);
