@@ -60,6 +60,13 @@ input {
     margin-top: 10%;
 }
 
+th {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1.5%;
+    height: fit-content;
+}
+
 .five {
     border: 5px solid var(--box);
     border-radius: 20px;
@@ -106,4 +113,8 @@ input {
 
 .hidden {
     display: none;
+}
+
+.current-info {
+    font-size: 25px;
 }
