@@ -3,6 +3,8 @@ var historyList = document.querySelector('#history');
 var inputEl = document.querySelector('.form-input');
 var forecastEl = document.querySelector('.forecast');
 var resultPage = document.querySelector(".result");
+var currentEl = $('.current')
+var buttonclickEl = $('#history');
 var cityname = "";
 var saveEl = [];
 
@@ -21,10 +23,14 @@ function gettingInfo (event) {
         alert("should write something");
         return;
     }
-    //local storage setting array
-
+    //emptying the directory that we previously created
+    currentEl.textContent = "";
     forecastEl.textContent = "";
     inputEl.value = "";
+    gettingUrl(searchName)
+}
+
+function gettingUrl(searchName) {
     // next function which is searching the data
     // url goes to the java script with the fetch 
     weatherUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + searchName + "&units=imperial&appid=416af2287105033badad2b026eeca30c"
@@ -47,7 +53,7 @@ function getWeatherInfo(request) {
         }   
     })
     .catch(function (error) {
-        alert('unable to connet to the Weather Data')
+        alert('unable to connect to the Weather Data')
     });
 }
 
@@ -101,7 +107,8 @@ function listofName(name) {
         saveEl.push(`${name}`);  
     }
     //with the added thing render the history again
-    historyrender(name);
+    local();
+    historyrender();
 }
 
 // println the data into the box for the five day weather information
@@ -136,19 +143,31 @@ function local() {
     localStorage.setItem("saveEl",JSON.stringify(saveEl));  
 }
 
-
-function historyrender(name) { 
+function historyrender() { 
     // for loop to not repeat the same things on the list
-    console.log(name);
-    console.log(saveEl);
+    saveEl = JSON.parse(localStorage.getItem("saveEl"));
     historyList.textContent = "";
     for (var i = 0; i < saveEl.length; i++) {
-        var historyEl = document.createElement('li');
-        historyEl.setAttribute("id","button");
+        var historyEl = document.createElement('button');
+        historyEl.setAttribute("class","recallBtn");
+        historyEl.setAttribute("data-name", saveEl[i]);
         historyEl.textContent = saveEl[i];
         historyList.appendChild(historyEl);
-    }
+    }   
 }
 
+//getting the name which is at the left side history result
+function gettingHistoryName(event) {
+    var searching = event.target.getAttribute('data-name');
+    currentEl.textContent = "";
+    forecastEl.textContent = "";
+    inputEl.value = "";
+    gettingUrl(searching);
+}
+
+buttonclickEl.on('click', gettingHistoryName);
 submitFormEl.on('submit', gettingInfo);
 resultPage.classList.add("hidden");
+historyrender();
+
+// buttonHistory.addEventListener('click', gettingHistoryName);

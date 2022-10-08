@@ -42,15 +42,7 @@ h3, h4 {
 ol {
     list-style-type: none;
     text-align: center;
-}
-
-ol li {
-    margin: var(--mar);
-    font-size: 25px;
-    background-color: gray;
-    border-radius: 30px;
-    padding: var(--mar);
-    color: var(--text);
+    display: block;
 }
 
 input {
@@ -108,7 +100,7 @@ th {
     color: var(--text);
     border-radius: 20px;
     padding: var(--mar);
-    height: 50%;
+    height: 30vh;
 }
 
 .hidden {
@@ -117,4 +109,16 @@ th {
 
 .current-info {
     font-size: 25px;
+}
+
+.recallBtn {
+    margin-top: var(--mar);
+    margin-bottom: var(--mar);
+    font-size: 25px;
+    background-color: gray;
+    border-radius: 30px;
+    padding: var(--mar);
+    color: var(--text);
+    border: transparent;
+    width: 100%;
 }
