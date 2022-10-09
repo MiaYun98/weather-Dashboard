@@ -100,7 +100,7 @@ th {
     color: var(--text);
     border-radius: 20px;
     padding: var(--mar);
-    height: 30vh;
+    height: fit-content;
 }
 
 .hidden {
